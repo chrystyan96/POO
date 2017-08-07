@@ -25,11 +25,12 @@ public class Palavra {
 		this.palavra = palavra;
 	}
 	
-	private void similares(Palavra p) {
+	private boolean similares(Palavra p) {
 		for(int i = 0; i < p.getSimilares().length; i++)
 			this.setSimilares(p.getSimilares()[i]);
+		return true;
 	}
-
+	
 	public Palavra[] getSimilares() {
 		return this.similares;
 	}
@@ -44,38 +45,40 @@ public class Palavra {
 	}
 	
 	public boolean equals(Palavra p) {
-		return this.getPalavra().equals(p.getPalavra());
+		return (this.getPalavra().equals(p.getPalavra()));
 	}
 	
-	public boolean equals(String p, String p2) {
-		return p.equals(p2);
+	public boolean equals(Palavra[] p) {
+		for (int i = 0; i < p.length; i++) {
+			return this.getPalavra().equals(p[i].getPalavra());
+		}
+		return false;
+		
 	}
 	
-	public boolean contemNaSimilaridade(Palavra p) {
+	public int contemNaSimilaridade(Palavra p) {
+		int cont = 0;
 		for(Palavra pala : p.getSimilares())
 			if(this.equals(p)){
-				return true;
+				cont = 1;
 			}
-		return false;
+		return cont;
 	}
 	
 	public double similaridade(Palavra p) {
 		double nivel = 0;
 		int valor = 0;
+		int aux = 0;
 		if(this.equals(p))
 			nivel = 1;
 		else {
-			if(!this.contemNaSimilaridade(p))
-				nivel = 0;
-			else if(this.contemNaSimilaridade(p)) {
-				nivel += 0.5;
-				for(int i = 0; i < this.similares.length; i++)
-					for(int j = 0; i < p.similares.length; j++)
-						if(this.similares[i].equals(p.similares[j]))
-							valor++;
-				nivel = nivel + (valor / (valor*2));
+			for (int i = 0; i < p.getSimilares().length; i++) {
+				if(this.equals(p.getSimilares()[i])) 
+					nivel += 0.5;
 			}
+				//nivel = nivel;// + (valor / (valor*2)); 
 		}
+		
 		return nivel;
 	}
 }
