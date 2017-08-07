@@ -22,13 +22,14 @@ public class run {
 				
 		p2.setSimilares(p7);
 		p2.setSimilares(p4);
+		p2.setSimilares(p5);
 		
 		System.out.println(p2.getSimilares().length);
 		for (int i = 0; i < p2.getSimilares().length; i++) {
 			System.out.println(p2.getSimilares()[i].getPalavra());
 		}
 		System.out.println(p2.similaridade(p1));
-		//System.out.println(p7.similaridade(p8));
+		System.out.println(p7.similaridade(p8));
 		
 	}
 
